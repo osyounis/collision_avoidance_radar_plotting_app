@@ -11,7 +11,7 @@ A Python application to calculate a collision avoidance radar plot to help other
 ## 🪪 License
 This project is licensed under **GNU General Public License v3.0 or later (GPL-3.0-or-later).**
 
-See [LICENSE](https://github.com/osyounis/islamic_prayer_time_app/blob/main/LICENSE) for full text.
+See [LICENSE](https://github.com/osyounis/collision_avoidance_radar_plotting_app/blob/main/LICENSE) for full text.
 
 ---
 
