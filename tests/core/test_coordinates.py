@@ -5,7 +5,6 @@ Author: Omar Younis
 Date: 30/10/2025    [dd/mm/yyyy]
 """
 
-import pytest
 import numpy as np
 
 from radar_plotter.core.coordinates import bearing_to_cartesian, cartesian_to_bearing

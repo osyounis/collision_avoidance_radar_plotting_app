@@ -6,7 +6,6 @@ Date: 04/11/2025    [dd/mm/yyyy]
 """
 
 
-import pytest
 import numpy as np
 
 from radar_plotter.core.relative_motion import find_srm, find_drm, find_line_equation

@@ -8,7 +8,6 @@ Date: 04/11/2025    [dd/mm/yyyy]
 
 from datetime import datetime
 
-import pytest
 import numpy as np
 
 import matplotlib

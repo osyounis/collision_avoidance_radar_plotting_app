@@ -8,7 +8,6 @@ Date: 04/11/2025    [dd/mm/yyyy]
 
 from datetime import datetime
 
-import pytest
 import numpy as np
 
 from radar_plotter.core.cpa import find_cpa_point, find_time_to_cpa

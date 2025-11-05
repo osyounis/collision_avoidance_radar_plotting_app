@@ -9,7 +9,6 @@ Date: 04/11/2025    [dd/mm/yyyy]
 
 from datetime import datetime
 
-import pytest
 import numpy as np
 
 from radar_plotter.core.coordinates import bearing_to_cartesian, cartesian_to_bearing
@@ -118,7 +117,7 @@ def test_find_ns_basic():
     r_point = (45.0, 11.5, "14:00")
     m_point = (43.0, 9.0, "14:06")
     e_point = (45.0, 8.0)
-    rs_point = (45.0, 5.0)
+    rs_point = (45.0, 12.0)  # RS further out than E for positive speed
 
     ns = find_ns(r_point, m_point, e_point, rs_point)
 
