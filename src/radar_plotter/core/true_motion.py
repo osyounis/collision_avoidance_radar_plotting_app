@@ -40,6 +40,7 @@ def find_dtm(m_point: tuple, e_point: tuple) -> float:
 
     return bearing
 
+
 def find_stm(r_point: tuple, m_point: tuple, e_point: tuple) -> float:
     """
     Calculates Speed of True Motion (STM).
@@ -67,6 +68,7 @@ def find_stm(r_point: tuple, m_point: tuple, e_point: tuple) -> float:
 
     return speed
 
+
 def find_nc(our_course: float, r_nc: tuple) -> float:
     """
     Calculate New Course (N/C).
@@ -87,11 +89,8 @@ def find_nc(our_course: float, r_nc: tuple) -> float:
 
     return temp_new_course % 360
 
-def find_ns(r_point: tuple,
-            m_point: tuple,
-            e_point: tuple,
-            rs_point: tuple
-            ) -> float:
+
+def find_ns(r_point: tuple, m_point: tuple, e_point: tuple, rs_point: tuple) -> float:
     """
     Calculate New Speed (N/S).
 

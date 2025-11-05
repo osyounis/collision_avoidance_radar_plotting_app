@@ -49,6 +49,7 @@ def find_cpa_point(r_point: tuple, m_point: tuple) -> tuple[float, float]:
 
     return cpa_bearing, cpa_range
 
+
 def find_time_to_cpa(r_point: tuple, cpa_point: tuple, speed: float) -> datetime:
     """
     Calculate the time that CPA will occur.

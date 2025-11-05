@@ -22,7 +22,7 @@ def bearing_to_cartesian(bearing: float, target_range: float) -> tuple:
     Returns:
         Tuple: (x, y) coordinates where:
             - x: East-West component(positive = East)
-            - y: North-South component (positive = North) 
+            - y: North-South component (positive = North)
     """
     # Convert radians to degrees using numpy's built-in function
     angle = np.deg2rad(bearing)
@@ -31,6 +31,7 @@ def bearing_to_cartesian(bearing: float, target_range: float) -> tuple:
     y_coordinate = target_range * np.cos(angle)
 
     return x_coordinate, y_coordinate
+
 
 def cartesian_to_bearing(x_coord: float, y_coord: float) -> tuple:
     """
@@ -46,7 +47,7 @@ def cartesian_to_bearing(x_coord: float, y_coord: float) -> tuple:
             - range: Distance in nautical miles
     """
     # Getting range and radian bearing from x, y coordinates
-    target_range = np.sqrt((x_coord ** 2) + (y_coord ** 2))
+    target_range = np.sqrt((x_coord**2) + (y_coord**2))
     rad_bearing = np.arctan2(x_coord, y_coord)
 
     # Convert bearing from rad to degrees and check to make sure the value

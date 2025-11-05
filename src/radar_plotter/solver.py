@@ -17,7 +17,7 @@ from .core.maneuvers import (
     find_e_point,
     find_rs_point,
     find_r_nc,
-    find_rc_point
+    find_rc_point,
 )
 from .core.true_motion import find_dtm, find_stm, find_nc, find_ns
 
@@ -43,7 +43,9 @@ def solver_radar_problem(problem: RadarProblem) -> RadarSolution:
     e_point = find_e_point(r_point, m_point, problem.our_speed)
 
     # Calculating important lines to find the rest of the required points
-    nrml_equ = find_nrml_equation(r_point, m_point, maneuver_point, problem.new_cpa_dist)
+    nrml_equ = find_nrml_equation(
+        r_point, m_point, maneuver_point, problem.new_cpa_dist
+    )
     arml_equ = find_arml_equation(m_point, nrml_equ)
     rs_point = find_rs_point(e_point, arml_equ)
     r_nc = find_r_nc(r_point, m_point, e_point, rs_point, problem.our_speed, arml_equ)
@@ -59,17 +61,17 @@ def solver_radar_problem(problem: RadarProblem) -> RadarSolution:
     ns = find_ns(r_point, m_point, e_point, rs_point)
 
     return RadarSolution(
-        cpa_bearing = cpa_point[0],
-        cpa_range= cpa_point[1],
-        cpa_time = tcpa,
-        srm = srm,
-        drm = drm,
-        stm = stm,
-        dtm = dtm,
-        new_course = nc,
-        new_speed = ns,
-        maneuver_point = maneuver_point,
-        e_point = e_point,
-        rs_point = rs_point,
-        rc_point = rc_point
+        cpa_bearing=cpa_point[0],
+        cpa_range=cpa_point[1],
+        cpa_time=tcpa,
+        srm=srm,
+        drm=drm,
+        stm=stm,
+        dtm=dtm,
+        new_course=nc,
+        new_speed=ns,
+        maneuver_point=maneuver_point,
+        e_point=e_point,
+        rs_point=rs_point,
+        rc_point=rc_point,
     )

@@ -17,7 +17,7 @@ def main():
         maneuver_dist=5.0,
         new_cpa_dist=2.5,
         r_point=RadarPoint(45.0, 11.5, "14:00"),
-        m_point=RadarPoint(43.0, 9.0, "14:06")
+        m_point=RadarPoint(43.0, 9.0, "14:06"),
     )
 
     # Solve the problem

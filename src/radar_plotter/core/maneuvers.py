@@ -41,14 +41,14 @@ def find_maneuver_point(r_point: tuple, m_point: tuple, maneuver_dist: float) ->
     # equation (y = mx + c) into the circle equation. Note that we use the
     # circle equation (x - h)^2 + (y - k)^2 = r^2 and then we find x using:
     # x = -b +- sqrt(b^2 -4ac)/2a.
-    a = 1 + (line_slope ** 2)
+    a = 1 + (line_slope**2)
     b = 2 * line_slope * line_intercept
-    c = (line_intercept ** 2) - (maneuver_dist ** 2)
+    c = (line_intercept**2) - (maneuver_dist**2)
 
     # Finding the two points on the line that intersect the manuever distance
     # circle (i.e the roots of the quadratic equation)
-    x_1 = (-b + np.sqrt((b ** 2) - (4 * a * c))) / (2 * a)
-    x_2 = (-b - np.sqrt((b ** 2) - (4 * a * c))) / (2 * a)
+    x_1 = (-b + np.sqrt((b**2) - (4 * a * c))) / (2 * a)
+    x_2 = (-b - np.sqrt((b**2) - (4 * a * c))) / (2 * a)
 
     # Finding the y values for each of the roots
     y_1 = (line_slope * x_1) + line_intercept
@@ -63,11 +63,10 @@ def find_maneuver_point(r_point: tuple, m_point: tuple, maneuver_dist: float) ->
 
     return cartesian_to_bearing(x_2, y_2)
 
-def find_nrml_equation(r_point: tuple,
-                       m_point: tuple,
-                       maneuver_point: tuple,
-                       new_cpa_dist: float
-                       ) -> tuple[float, float]:
+
+def find_nrml_equation(
+    r_point: tuple, m_point: tuple, maneuver_point: tuple, new_cpa_dist: float
+) -> tuple[float, float]:
     """
     Find the new Relative Motion Line (NRML) equation.
 
@@ -93,18 +92,18 @@ def find_nrml_equation(r_point: tuple,
     # touches the circle with the radius of the new CPA. This will give us two
     # points, so we use the point which creates a slope that is closest to the
     # current CPA line.
-    t_a = (maneuv_y ** 2) + (maneuv_x ** 2)
-    t_b = -(2 * (new_cpa_dist ** 2) * maneuv_x)
-    t_c = (new_cpa_dist ** 4) - ((new_cpa_dist ** 2) * (maneuv_y ** 2))
+    t_a = (maneuv_y**2) + (maneuv_x**2)
+    t_b = -(2 * (new_cpa_dist**2) * maneuv_x)
+    t_c = (new_cpa_dist**4) - ((new_cpa_dist**2) * (maneuv_y**2))
 
     # Finding the x-coordinates of the two possible points for the two tangent
     # lines from the maneuver point to the new CPA circle
-    tx_1 = (-t_b + np.sqrt((t_b ** 2) - (4 * t_a * t_c))) / (2 * t_a)
-    tx_2 = (-t_b - np.sqrt((t_b ** 2) - (4 * t_a * t_c))) / (2 * t_a)
+    tx_1 = (-t_b + np.sqrt((t_b**2) - (4 * t_a * t_c))) / (2 * t_a)
+    tx_2 = (-t_b - np.sqrt((t_b**2) - (4 * t_a * t_c))) / (2 * t_a)
 
     # Finding the y-coordinate for each of the possible x-coordinates
-    ty_1 = ((new_cpa_dist ** 2) - (maneuv_x * tx_1)) / maneuv_y
-    ty_2 = ((new_cpa_dist ** 2) - (maneuv_x * tx_2)) / maneuv_y
+    ty_1 = ((new_cpa_dist**2) - (maneuv_x * tx_1)) / maneuv_y
+    ty_2 = ((new_cpa_dist**2) - (maneuv_x * tx_2)) / maneuv_y
 
     # Finding the slopes for the two possible points. We then check which slope
     # is closest to the RML's slope which is the slope we are interested in.
@@ -117,6 +116,7 @@ def find_nrml_equation(r_point: tuple,
         return slope_1, intercept_1
 
     return slope_2, intercept_2
+
 
 def find_arml_equation(m_point: tuple, nrml_equation: tuple) -> tuple[float, float]:
     """
@@ -135,7 +135,10 @@ def find_arml_equation(m_point: tuple, nrml_equation: tuple) -> tuple[float, flo
 
     return nrml_equation[0], line_intercept
 
-def find_e_point(r_point: tuple, m_point: tuple, our_speed: float) -> tuple[float, float]:
+
+def find_e_point(
+    r_point: tuple, m_point: tuple, our_speed: float
+) -> tuple[float, float]:
     """
     Find point e (Origin of the True Motion Vector).
 
@@ -163,6 +166,7 @@ def find_e_point(r_point: tuple, m_point: tuple, our_speed: float) -> tuple[floa
 
     return cartesian_to_bearing(e_x, e_y)
 
+
 def find_rs_point(e_point: tuple, arml_equation: tuple) -> tuple[float, float]:
     """
     Find rs point (required speed change point).
@@ -184,13 +188,15 @@ def find_rs_point(e_point: tuple, arml_equation: tuple) -> tuple[float, float]:
 
     return cartesian_to_bearing(rs_x, rs_y)
 
-def find_r_nc(r_point: tuple,
-              m_point: tuple,
-              e_point: tuple,
-              rs_point: tuple,
-              our_speed: float,
-              arml_equation: tuple
-              ) -> tuple[float, float]:
+
+def find_r_nc(
+    r_point: tuple,
+    m_point: tuple,
+    e_point: tuple,
+    rs_point: tuple,
+    our_speed: float,
+    arml_equation: tuple,
+) -> tuple[float, float]:
     """
     Find the relative new course vector (r_nc).
 
@@ -231,12 +237,12 @@ def find_r_nc(r_point: tuple,
     # x = -b +- sqrt(b^2 -4ac)/2a.
     a = 1 + (arml_equation[0] ** 2)
     b = 2 * arml_equation[0] * temp_line_intercept
-    c = (temp_line_intercept ** 2) - ((our_speed * time_delta) ** 2)
+    c = (temp_line_intercept**2) - ((our_speed * time_delta) ** 2)
 
     # Finding the two points on the line that intersect the circle (i.e the
     # roots of the quadratic equation)
-    x_1 = (-b + np.sqrt((b ** 2) - (4 * a * c))) / (2 * a)
-    x_2 = (-b - np.sqrt((b ** 2) - (4 * a * c))) / (2 * a)
+    x_1 = (-b + np.sqrt((b**2) - (4 * a * c))) / (2 * a)
+    x_2 = (-b - np.sqrt((b**2) - (4 * a * c))) / (2 * a)
 
     # Finding the y values for each of the roots
     y_1 = (arml_equation[0] * x_1) + temp_line_intercept
@@ -256,6 +262,7 @@ def find_r_nc(r_point: tuple,
     both_lower_half = r_point[0] <= 180 and r_nc_1[0] <= 180
     both_upper_half = r_point[0] > 180 and r_nc_1[0] > 180
     return r_nc_1 if (both_lower_half or both_upper_half) else r_nc_2
+
 
 def find_rc_point(e_point: tuple, r_nc_vector: tuple) -> tuple[float, float]:
     """

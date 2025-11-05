@@ -16,11 +16,13 @@ def test_bearing_to_cartesian_north():
     assert np.isclose(x, 0.0, atol=1e-10)
     assert np.isclose(y, 10.0)
 
+
 def test_bearing_to_cartesian_east():
     """Tests conversion for due East."""
     x, y = bearing_to_cartesian(90.0, 10.0)
     assert np.isclose(x, 10.0)
     assert np.isclose(y, 0.0, atol=1e-10)
+
 
 def test_bearing_to_cartesian_south():
     """Tests conversion for due South."""
@@ -28,11 +30,13 @@ def test_bearing_to_cartesian_south():
     assert np.isclose(x, 0.0, atol=1e-10)
     assert np.isclose(y, -10.0)
 
+
 def test_bearing_to_cartesian_west():
     """Tests conversion for due West."""
     x, y = bearing_to_cartesian(270.0, 10.0)
     assert np.isclose(x, -10.0)
     assert np.isclose(y, 0.0, atol=1e-10)
+
 
 def test_cartesian_to_bearing_north():
     """Tests conversion back to bearing for North."""
@@ -40,11 +44,13 @@ def test_cartesian_to_bearing_north():
     assert np.isclose(bearing, 0.0)
     assert np.isclose(range_val, 10.0)
 
+
 def test_cartesian_to_bearing_east():
     """Test conversion back to bearing to East."""
     bearing, range_val = cartesian_to_bearing(10.0, 0.0)
     assert np.isclose(bearing, 90.0)
     assert np.isclose(range_val, 10.0)
+
 
 def test_round_trip_conversion():
     """Test that converting back and forth preserves original values."""
@@ -58,6 +64,7 @@ def test_round_trip_conversion():
     assert np.isclose(bearing, original_bearing)
     assert np.isclose(range_val, original_range)
 
+
 def test_multiple_round_trips():
     """Test multiple round trip conversions."""
     test_cases = [
@@ -68,7 +75,7 @@ def test_multiple_round_trips():
         (180.0, 6.7),
         (225.0, 9.1),
         (270.0, 4.3),
-        (315.0, 11.5)
+        (315.0, 11.5),
     ]
 
     for bearing_in, range_in in test_cases:

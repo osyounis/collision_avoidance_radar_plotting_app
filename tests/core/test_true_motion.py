@@ -6,7 +6,6 @@ Author: Omar Younis
 Date: 04/11/2025    [dd/mm/yyyy]
 """
 
-
 from datetime import datetime
 
 import numpy as np
@@ -39,8 +38,9 @@ def test_find_dtm_basic():
     expected_dtm, _ = cartesian_to_bearing(rel_x, rel_y)
 
     # Verify calculated DTM matches expected
-    assert np.isclose(dtm, expected_dtm, atol=2.0), \
+    assert np.isclose(dtm, expected_dtm, atol=2.0), (
         f"DTM should be {expected_dtm:.2f}°, got {dtm:.2f}°"
+    )
 
 
 def test_find_stm_basic():
@@ -59,7 +59,7 @@ def test_find_stm_basic():
     # Calculate distance from E to M
     m_x, m_y = bearing_to_cartesian(m_point[0], m_point[1])
     e_x, e_y = bearing_to_cartesian(e_point[0], e_point[1])
-    distance = np.sqrt((m_x - e_x)**2 + (m_y - e_y)**2)
+    distance = np.sqrt((m_x - e_x) ** 2 + (m_y - e_y) ** 2)
 
     # Calculate time interval
     r_time = datetime.strptime(r_point[2], "%H:%M")
@@ -70,9 +70,10 @@ def test_find_stm_basic():
     expected_stm = distance / time_delta_hours
 
     # Verify calculated STM matches expected
-    assert np.isclose(stm, expected_stm, atol=0.5), \
+    assert np.isclose(stm, expected_stm, atol=0.5), (
         f"STM should be {expected_stm:.2f} kts (distance {distance:.2f} NM ÷ \
             {time_delta_hours:.3f} hr), got {stm:.2f} kts"
+    )
 
 
 def test_find_nc_basic():
@@ -92,13 +93,15 @@ def test_find_nc_basic():
         expected_nc = expected_nc % 360
 
     # Verify calculation
-    assert np.isclose(nc, expected_nc, atol=0.5), \
+    assert np.isclose(nc, expected_nc, atol=0.5), (
         f"New course should be {expected_nc:.2f}° (our course {our_course}° + \
             relative {r_nc[0]}°), got {nc:.2f}°"
+    )
 
     # For this specific test: 0° + 50° = 50°
-    assert np.isclose(nc, 50.0, atol=0.5), \
+    assert np.isclose(nc, 50.0, atol=0.5), (
         f"With our course 0° and relative 50°, new course should be 50°, got {nc:.2f}°"
+    )
 
 
 def test_find_nc_wraparound():
@@ -141,10 +144,10 @@ def test_find_ns_basic():
     expected_ns = y_distance / time_delta_hours
 
     # Verify calculation
-    assert np.isclose(ns, expected_ns, atol=0.5), \
+    assert np.isclose(ns, expected_ns, atol=0.5), (
         f"New speed should be {expected_ns:.2f} kts (y-distance \
             {y_distance:.2f} NM ÷ {time_delta_hours:.3f} hr), got {ns:.2f} kts"
+    )
 
     # New speed should be reasonable (not negative, not extremely high)
-    assert 0 < ns < 50, \
-        f"New speed should be reasonable (0-50 kts), got {ns:.2f} kts"
+    assert 0 < ns < 50, f"New speed should be reasonable (0-50 kts), got {ns:.2f} kts"

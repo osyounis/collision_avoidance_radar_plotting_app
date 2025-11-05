@@ -17,8 +17,9 @@ from ..core.relative_motion import find_line_equation
 from ..core.maneuvers import find_nrml_equation, find_arml_equation
 
 
-def plot_radar_solution(problem: RadarProblem, solution: RadarSolution,
-                        show: bool = True) -> Figure:
+def plot_radar_solution(
+    problem: RadarProblem, solution: RadarSolution, show: bool = True
+) -> Figure:
     """
     Create a radar plot visualization of the solution with vector arrows.
 
@@ -48,38 +49,64 @@ def plot_radar_solution(problem: RadarProblem, solution: RadarSolution,
     first_step_points_t = [r_point[0], m_point[0], solution.e_point[0]]
     first_step_points_r = [r_point[1], m_point[1], solution.e_point[1]]
     first_step_point_labels = [" r", " m", " e"]
-    ax.scatter(np.deg2rad(first_step_points_t), first_step_points_r,
-               s=75, marker="x", lw=1, c="k")
+    ax.scatter(
+        np.deg2rad(first_step_points_t),
+        first_step_points_r,
+        s=75,
+        marker="x",
+        lw=1,
+        c="k",
+    )
     for i, label in enumerate(first_step_point_labels):
-        ax.annotate(label, (np.deg2rad(first_step_points_t[i] + 1),
-                            first_step_points_r[i]))
+        ax.annotate(
+            label, (np.deg2rad(first_step_points_t[i] + 1), first_step_points_r[i])
+        )
 
     # Draw maneuver ring
-    theta = np.arange(0, 2*np.pi, 0.01)
+    theta = np.arange(0, 2 * np.pi, 0.01)
     radius = np.full(len(theta), problem.maneuver_dist)
-    ax.plot(theta, radius, lw=1.25, c="tab:orange", linestyle="dashed",
-            label="Maneuver Distance")
+    ax.plot(
+        theta,
+        radius,
+        lw=1.25,
+        c="tab:orange",
+        linestyle="dashed",
+        label="Maneuver Distance",
+    )
 
     # Draw keep out distance circle
     radius_keepout = np.full(len(theta), problem.new_cpa_dist)
-    ax.plot(theta, radius_keepout, lw=1.25, c="tab:red", linestyle="dotted",
-            label="Keep Out Distance")
+    ax.plot(
+        theta,
+        radius_keepout,
+        lw=1.25,
+        c="tab:red",
+        linestyle="dotted",
+        label="Keep Out Distance",
+    )
 
     # Draw maneuver point
-    ax.scatter(np.deg2rad(solution.maneuver_point[0]), solution.maneuver_point[1],
-               s=150, marker="x", lw=1, c="k")
-    ax.annotate(" Mx", (np.deg2rad(solution.maneuver_point[0] + 3),
-                       solution.maneuver_point[1]))
+    ax.scatter(
+        np.deg2rad(solution.maneuver_point[0]),
+        solution.maneuver_point[1],
+        s=150,
+        marker="x",
+        lw=1,
+        c="k",
+    )
+    ax.annotate(
+        " Mx", (np.deg2rad(solution.maneuver_point[0] + 3), solution.maneuver_point[1])
+    )
 
     # Draw New course change point and new speed point
     final_points_t = [solution.rs_point[0], solution.rc_point[0]]
     final_points_r = [solution.rs_point[1], solution.rc_point[1]]
     final_point_labels = [" rs", " rc"]
-    ax.scatter(np.deg2rad(final_points_t), final_points_r,
-               s=75, marker="x", lw=1, c="k")
+    ax.scatter(
+        np.deg2rad(final_points_t), final_points_r, s=75, marker="x", lw=1, c="k"
+    )
     for i, label in enumerate(final_point_labels):
-        ax.annotate(label, (np.deg2rad(final_points_t[i] + 1),
-                            final_points_r[i]))
+        ax.annotate(label, (np.deg2rad(final_points_t[i] + 1), final_points_r[i]))
 
     # Draw RML (Relative Motion Line)
     m, c = find_line_equation(r_point, m_point, cartesian=False)
@@ -96,7 +123,9 @@ def plot_radar_solution(problem: RadarProblem, solution: RadarSolution,
     ax.plot(thetas, radii, c="tab:red", lw=1, label="CPA")
 
     # Adding NRML (New Relative Motion Line)
-    nrml_equ = find_nrml_equation(r_point, m_point, solution.maneuver_point, problem.new_cpa_dist)
+    nrml_equ = find_nrml_equation(
+        r_point, m_point, solution.maneuver_point, problem.new_cpa_dist
+    )
     arml_equ = find_arml_equation(m_point, nrml_equ)
 
     temp_x = -5
@@ -110,10 +139,10 @@ def plot_radar_solution(problem: RadarProblem, solution: RadarSolution,
     plot_radius = 12
     a_arml = 1 + (arml_equ[0] ** 2)
     b_arml = 2 * arml_equ[0] * arml_equ[1]
-    c_arml = (arml_equ[1] ** 2) - (plot_radius ** 2)
+    c_arml = (arml_equ[1] ** 2) - (plot_radius**2)
 
-    x_arml_1 = (-b_arml + np.sqrt((b_arml ** 2) - (4 * a_arml * c_arml))) / (2 * a_arml)
-    x_arml_2 = (-b_arml - np.sqrt((b_arml ** 2) - (4 * a_arml * c_arml))) / (2 * a_arml)
+    x_arml_1 = (-b_arml + np.sqrt((b_arml**2) - (4 * a_arml * c_arml))) / (2 * a_arml)
+    x_arml_2 = (-b_arml - np.sqrt((b_arml**2) - (4 * a_arml * c_arml))) / (2 * a_arml)
 
     y_arml_1 = (arml_equ[0] * x_arml_1) + arml_equ[1]
     y_arml_2 = (arml_equ[0] * x_arml_2) + arml_equ[1]
@@ -151,16 +180,20 @@ def plot_radar_solution(problem: RadarProblem, solution: RadarSolution,
     ax.plot(thetas, radii, c="k", lw=1)
 
     # Adding rs vector line (with arrow) - Speed Change
-    ax.annotate('',
-                xy=(np.deg2rad(solution.rs_point[0]), solution.rs_point[1]),
-                xytext=(np.deg2rad(solution.e_point[0]), solution.e_point[1]),
-                arrowprops=dict(arrowstyle='->', lw=2, color='red'))
+    ax.annotate(
+        "",
+        xy=(np.deg2rad(solution.rs_point[0]), solution.rs_point[1]),
+        xytext=(np.deg2rad(solution.e_point[0]), solution.e_point[1]),
+        arrowprops=dict(arrowstyle="->", lw=2, color="red"),
+    )
 
     # Adding rc vector line (with arrow) - Course Change
-    ax.annotate('',
-                xy=(np.deg2rad(solution.rc_point[0]), solution.rc_point[1]),
-                xytext=(np.deg2rad(solution.e_point[0]), solution.e_point[1]),
-                arrowprops=dict(arrowstyle='->', lw=2, color='green'))
+    ax.annotate(
+        "",
+        xy=(np.deg2rad(solution.rc_point[0]), solution.rc_point[1]),
+        xytext=(np.deg2rad(solution.e_point[0]), solution.e_point[1]),
+        arrowprops=dict(arrowstyle="->", lw=2, color="green"),
+    )
 
     # === TRADITIONAL RADAR PLOTTING SHEET STYLING ===
 
@@ -171,15 +204,22 @@ def plot_radar_solution(problem: RadarProblem, solution: RadarSolution,
     # Bearing lines every 10 degrees with labels every 30 degrees
     ax.set_thetagrids(
         np.arange(0, 360, 30),  # Label every 30°
-        labels=[f'{i:03d}°' for i in range(0, 360, 30)]  # Format: 000°, 030°, etc.
+        labels=[f"{i:03d}°" for i in range(0, 360, 30)],  # Format: 000°, 030°, etc.
     )
 
     # Show all tick marks every 10 degrees (like a traditional sheet)
     ax.set_xticks(np.deg2rad(np.arange(0, 360, 10)))
 
     # Enable radial grid lines (bearing lines radiating from center)
-    ax.grid(True, which='major', axis='both', linestyle='-', linewidth=0.5,
-            color='gray', alpha=0.4)
+    ax.grid(
+        True,
+        which="major",
+        axis="both",
+        linestyle="-",
+        linewidth=0.5,
+        color="gray",
+        alpha=0.4,
+    )
 
     # Setting Up Radius (Range) Ticks
     ax.set_rticks([2, 4, 6, 8, 10, 12])
@@ -187,14 +227,15 @@ def plot_radar_solution(problem: RadarProblem, solution: RadarSolution,
     ax.set_rmax(12)
 
     # Style the radial (range) grid lines to look more traditional
-    ax.yaxis.grid(True, color='gray', linestyle='-', linewidth=0.5, alpha=0.4)
+    ax.yaxis.grid(True, color="gray", linestyle="-", linewidth=0.5, alpha=0.4)
 
     # Adding Legend with better positioning
-    ax.legend(loc='upper right', bbox_to_anchor=(1.15, 1.1), framealpha=0.9)
+    ax.legend(loc="upper right", bbox_to_anchor=(1.15, 1.1), framealpha=0.9)
 
     # Adding title
-    ax.set_title("Collision Avoidance Radar Plot", pad=20, fontsize=14,
-                 fontweight='bold')
+    ax.set_title(
+        "Collision Avoidance Radar Plot", pad=20, fontsize=14, fontweight="bold"
+    )
 
     plt.tight_layout()
 

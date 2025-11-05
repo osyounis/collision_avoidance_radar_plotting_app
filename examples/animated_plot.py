@@ -12,13 +12,13 @@ from radar_plotter.plotting.radar_plot import plot_radar_solution
 
 def main():
     # Defines a problem
-    problem = RadarProblem (
+    problem = RadarProblem(
         our_course=0.0,
         our_speed=10.0,
         maneuver_dist=5.0,
         new_cpa_dist=2.5,
         r_point=RadarPoint(45.0, 11.5, "14:00"),
-        m_point=RadarPoint(43.0, 9.0, "14:06")
+        m_point=RadarPoint(43.0, 9.0, "14:06"),
     )
 
     # Solution to the problem

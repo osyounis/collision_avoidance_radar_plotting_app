@@ -5,13 +5,13 @@ Author: Omar Younis
 Date: 04/11/2025    [dd/mm/yyyy]
 """
 
-
 from datetime import datetime
 
 import numpy as np
 
 import matplotlib
-matplotlib.use('Agg')  # Non-interactive backend for testing
+
+matplotlib.use("Agg")  # Non-interactive backend for testing
 from matplotlib.figure import Figure
 from matplotlib.projections import PolarAxes
 
@@ -28,7 +28,7 @@ def test_plot_radar_solution_returns_figure():
         maneuver_dist=5.0,
         new_cpa_dist=2.5,
         r_point=RadarPoint(45.0, 11.5, "14:00"),
-        m_point=RadarPoint(43.0, 9.0, "14:06")
+        m_point=RadarPoint(43.0, 9.0, "14:06"),
     )
 
     solution = RadarSolution(
@@ -44,7 +44,7 @@ def test_plot_radar_solution_returns_figure():
         maneuver_point=(44.0, 5.0),
         e_point=(45.0, 8.0),
         rs_point=(45.0, 5.0),
-        rc_point=(46.0, 6.0)
+        rc_point=(46.0, 6.0),
     )
 
     fig = plot_radar_solution(problem, solution, show=False)
@@ -61,7 +61,7 @@ def test_plot_radar_solution_no_errors():
         maneuver_dist=5.0,
         new_cpa_dist=2.5,
         r_point=RadarPoint(45.0, 11.5, "14:00"),
-        m_point=RadarPoint(43.0, 9.0, "14:06")
+        m_point=RadarPoint(43.0, 9.0, "14:06"),
     )
 
     solution = RadarSolution(
@@ -77,7 +77,7 @@ def test_plot_radar_solution_no_errors():
         maneuver_point=(44.0, 5.0),
         e_point=(45.0, 8.0),
         rs_point=(45.0, 5.0),
-        rc_point=(46.0, 6.0)
+        rc_point=(46.0, 6.0),
     )
 
     # Should not raise any exceptions
@@ -95,7 +95,9 @@ def test_plot_radar_solution_no_errors():
 
     # Verify plot has content (lines, points, etc.)
     assert len(ax.lines) > 0, "Plot should have lines (RML, CPA, NRML, ARML)"
-    assert len(ax.collections) > 0, "Plot should have scatter points (r, m, e, mx, rs, rc)"
+    assert len(ax.collections) > 0, (
+        "Plot should have scatter points (r, m, e, mx, rs, rc)"
+    )
 
     # Verify plot has a title
     assert ax.get_title() != "", "Plot should have a title"
@@ -108,4 +110,6 @@ def test_plot_radar_solution_no_errors():
     # Verify theta (bearing) is set correctly (North at top, clockwise)
     # Now that we know it's a PolarAxes, we can safely call these methods
     assert ax.get_theta_direction() == -1, "Bearings should increase clockwise"
-    assert np.isclose(ax.get_theta_offset(), np.pi / 2, atol=0.01), "North (0°) should be at top"
+    assert np.isclose(ax.get_theta_offset(), np.pi / 2, atol=0.01), (
+        "North (0°) should be at top"
+    )

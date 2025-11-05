@@ -5,7 +5,6 @@ Author: Omar Younis
 Date: 04/11/2025    [dd/mm/yyyy]
 """
 
-
 from datetime import datetime
 
 
@@ -39,7 +38,7 @@ def test_radar_problem_creation():
         maneuver_dist=5.0,
         new_cpa_dist=2.5,
         r_point=RadarPoint(45.0, 11.5, "14:00"),
-        m_point=RadarPoint(43.0, 9.0, "14:06")
+        m_point=RadarPoint(43.0, 9.0, "14:06"),
     )
 
     assert problem.our_course == 0.0
@@ -79,7 +78,7 @@ def test_radar_solution_creation():
         maneuver_point=(44.0, 5.0),
         e_point=(45.0, 8.0),
         rs_point=(45.0, 5.0),
-        rc_point=(46.0, 6.0)
+        rc_point=(46.0, 6.0),
     )
 
     # Test all field values

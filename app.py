@@ -18,24 +18,25 @@ def main():
     """
     Main code which runs the app.
     """
-    st.set_page_config(
-        page_title="Radar Plotting App",
-        page_icon="🎯",
-        layout="wide"
-    )
+    st.set_page_config(page_title="Radar Plotting App", page_icon="🎯", layout="wide")
 
     # Initialize session state for active tab
-    if 'active_tab' not in st.session_state:
+    if "active_tab" not in st.session_state:
         st.session_state.active_tab = "Calculator"
 
     st.title("⚓️ Collision Avoidance Radar Plotting App")
-    st.markdown("Calculate collision avoidance maneuvers using radar plotting techniques")
+    st.markdown(
+        "Calculate collision avoidance maneuvers using radar plotting techniques"
+    )
 
     # Disclaimer
-    st.warning("⚠️ **Disclaimer**: This is an educational tool ONLY and should NOT be used for real collision avoidance situations. This is for training purposes ONLY.")
+    st.warning(
+        "⚠️ **Disclaimer**: This is an educational tool ONLY and should NOT be used for real collision avoidance situations. This is for training purposes ONLY."
+    )
 
     # Custom CSS for tab-like buttons (Coast Guard Auxiliary colors)
-    st.markdown("""
+    st.markdown(
+        """
         <style>
         /* Style for our custom tab buttons */
         div.stButton > button {
@@ -46,22 +47,34 @@ def main():
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         </style>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
     # Create custom tab buttons using columns
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button("📊 Calculator", use_container_width=True,
-                     type="primary" if st.session_state.active_tab == "Calculator" else "secondary",
-                     key="calc_tab_btn"):
+        if st.button(
+            "📊 Calculator",
+            use_container_width=True,
+            type="primary"
+            if st.session_state.active_tab == "Calculator"
+            else "secondary",
+            key="calc_tab_btn",
+        ):
             st.session_state.active_tab = "Calculator"
             st.rerun()
 
     with col2:
-        if st.button("ℹ️ Instructions", use_container_width=True,
-                     type="primary" if st.session_state.active_tab == "Instructions" else "secondary",
-                     key="instr_tab_btn"):
+        if st.button(
+            "ℹ️ Instructions",
+            use_container_width=True,
+            type="primary"
+            if st.session_state.active_tab == "Instructions"
+            else "secondary",
+            key="instr_tab_btn",
+        ):
             st.session_state.active_tab = "Instructions"
             st.rerun()
 
@@ -71,35 +84,19 @@ def main():
     # Own ship information
     st.sidebar.subheader("Your Vessel")
     our_course = st.sidebar.number_input(
-        "Course (°)",
-        min_value=0.0,
-        max_value=359.0,
-        value=0.0,
-        step=1.0
-        )
+        "Course (°)", min_value=0.0, max_value=359.0, value=0.0, step=1.0
+    )
     our_speed = st.sidebar.number_input(
-        "Speed (kts)",
-        min_value=0.0,
-        max_value=50.0,
-        value=10.0,
-        step=0.1
+        "Speed (kts)", min_value=0.0, max_value=50.0, value=10.0, step=0.1
     )
 
     # Maneuver parameters
     st.sidebar.subheader("Maneuver Parameters")
     maneuver_dist = st.sidebar.number_input(
-        "Maneuver Distance (NM)",
-        min_value=0.1,
-        max_value=20.0,
-        value=5.0,
-        step=0.1
+        "Maneuver Distance (NM)", min_value=0.1, max_value=20.0, value=5.0, step=0.1
     )
     new_cpa_dist = st.sidebar.number_input(
-        "Keep Out Distance (NM)",
-        min_value=0.1,
-        max_value=20.0,
-        value=2.5,
-        step=0.1
+        "Keep Out Distance (NM)", min_value=0.1, max_value=20.0, value=2.5, step=0.1
     )
 
     # Target Vessel (First position [Point R])
@@ -110,21 +107,12 @@ def main():
         max_value=359.0,
         value=45.0,
         step=1.0,
-        key="r_bearing"
+        key="r_bearing",
     )
     r_ranage = st.sidebar.number_input(
-        "Range (NM)",
-        min_value=0.1,
-        max_value=50.0,
-        value=11.5,
-        step=0.1,
-        key="r_range"
+        "Range (NM)", min_value=0.1, max_value=50.0, value=11.5, step=0.1, key="r_range"
     )
-    r_time = st.sidebar.text_input(
-        "Time (HH:MM) [24hr]",
-        value="14:00",
-        key="r_time"
-    )
+    r_time = st.sidebar.text_input("Time (HH:MM) [24hr]", value="14:00", key="r_time")
 
     # Target Vessel (Second position [Point M])
     st.sidebar.subheader("Target Vessel - Second Appearance")
@@ -134,21 +122,12 @@ def main():
         max_value=359.0,
         value=43.0,
         step=1.0,
-        key="m_bearing"
+        key="m_bearing",
     )
     m_ranage = st.sidebar.number_input(
-        "Range (NM)",
-        min_value=0.1,
-        max_value=50.0,
-        value=9.0,
-        step=0.1,
-        key="m_range"
+        "Range (NM)", min_value=0.1, max_value=50.0, value=9.0, step=0.1, key="m_range"
     )
-    m_time = st.sidebar.text_input(
-        "Time (HH:MM) [24hr]",
-        value="14:06",
-        key="m_time"
-    )
+    m_time = st.sidebar.text_input("Time (HH:MM) [24hr]", value="14:06", key="m_time")
 
     # Calculate Button
     if st.sidebar.button("🎯 Calculate Solution", type="primary"):
@@ -157,12 +136,12 @@ def main():
             st.session_state.active_tab = "Calculator"
             # Create problem
             problem = RadarProblem(
-                our_course = our_course,
-                our_speed = our_speed,
-                maneuver_dist = maneuver_dist,
-                new_cpa_dist = new_cpa_dist,
-                r_point = RadarPoint(r_bearing, r_ranage, r_time),
-                m_point = RadarPoint(m_bearing, m_ranage, m_time)
+                our_course=our_course,
+                our_speed=our_speed,
+                maneuver_dist=maneuver_dist,
+                new_cpa_dist=new_cpa_dist,
+                r_point=RadarPoint(r_bearing, r_ranage, r_time),
+                m_point=RadarPoint(m_bearing, m_ranage, m_time),
             )
 
             # Solve
@@ -187,39 +166,65 @@ def main():
     # Display content based on active tab
     if st.session_state.active_tab == "Calculator":
         # Calculator Tab Content
-        if 'has_solution' in st.session_state and st.session_state.has_solution:
+        if "has_solution" in st.session_state and st.session_state.has_solution:
             st.header("📊 Results")
 
             col1, col2, col3 = st.columns(3)
 
             with col1:
-                st.metric("CPA Distance", f"{st.session_state.solution.cpa_range:.1f} NM")
-                st.metric("CPA Bearing", f"{st.session_state.solution.cpa_bearing:06.2f}°")
-                st.metric("Time to CPA", st.session_state.solution.cpa_time.strftime("%H:%M"))
+                st.metric(
+                    "CPA Distance", f"{st.session_state.solution.cpa_range:.1f} NM"
+                )
+                st.metric(
+                    "CPA Bearing", f"{st.session_state.solution.cpa_bearing:06.2f}°"
+                )
+                st.metric(
+                    "Time to CPA", st.session_state.solution.cpa_time.strftime("%H:%M")
+                )
 
             with col2:
-                st.metric("SRM (Speed Relative Movement)", f"{st.session_state.solution.srm:.1f} kts")
-                st.metric("DRM (Direction Relative Movement)", f"{st.session_state.solution.drm:06.2f}°")
-                st.metric("STM (Speed True Movement)", f"{st.session_state.solution.stm:.1f} kts")
+                st.metric(
+                    "SRM (Speed Relative Movement)",
+                    f"{st.session_state.solution.srm:.1f} kts",
+                )
+                st.metric(
+                    "DRM (Direction Relative Movement)",
+                    f"{st.session_state.solution.drm:06.2f}°",
+                )
+                st.metric(
+                    "STM (Speed True Movement)",
+                    f"{st.session_state.solution.stm:.1f} kts",
+                )
 
             with col3:
-                st.metric("DTM (Direction True Movement)", f"{st.session_state.solution.dtm:06.2f}°")
-                st.metric("New Course (N/C)", f"{st.session_state.solution.new_course:06.2f}°")
-                st.metric("New Speed (N/S)", f"{st.session_state.solution.new_speed:.1f} kts")
+                st.metric(
+                    "DTM (Direction True Movement)",
+                    f"{st.session_state.solution.dtm:06.2f}°",
+                )
+                st.metric(
+                    "New Course (N/C)", f"{st.session_state.solution.new_course:06.2f}°"
+                )
+                st.metric(
+                    "New Speed (N/S)", f"{st.session_state.solution.new_speed:.1f} kts"
+                )
 
             # Plot
             st.header("📈 Radar Plot")
-            fig = plot_radar_solution(st.session_state.problem, st.session_state.solution, show=False)
+            fig = plot_radar_solution(
+                st.session_state.problem, st.session_state.solution, show=False
+            )
             st.pyplot(fig)
 
             # Success message
             st.success("✅ Solution calculated successfully!")
-        elif 'error_message' in st.session_state:
+        elif "error_message" in st.session_state:
             st.error(st.session_state.error_message)
-            if 'error_exception' in st.session_state:
+            if "error_exception" in st.session_state:
                 st.exception(st.session_state.error_exception)
         else:
-            st.info("👈 Enter your vessel information and target observations in the sidebar, then click 'Calculate Solution' to see results.")
+            st.info(
+                "👈 Enter your vessel information and target observations in the sidebar, then click 'Calculate Solution' to see results."
+            )
 
     else:  # Instructions tab
         st.header("How to Use This App")

@@ -5,7 +5,6 @@ Author: Omar Younis
 Date: 04/11/2025    [dd/mm/yyyy]
 """
 
-
 import numpy as np
 
 from radar_plotter.core.relative_motion import find_srm, find_drm, find_line_equation
@@ -38,9 +37,10 @@ def test_find_srm_basic():
     expected_srm = distance / time_hours
 
     # Verify calculated SRM matches expected (within 0.5 kts tolerance)
-    assert np.isclose(srm, expected_srm, atol=0.5), \
+    assert np.isclose(srm, expected_srm, atol=0.5), (
         f"SRM should be {expected_srm:.2f} kts (distance {distance:.2f} NM / \
             {time_hours:.3f} hr), got {srm:.2f} kts"
+    )
 
 
 def test_find_drm_basic():
@@ -69,14 +69,16 @@ def test_find_drm_basic():
         expected_drm += 360
 
     # Verify calculated DRM matches expected (within 2° tolerance)
-    assert np.isclose(drm, expected_drm, atol=2.0), \
+    assert np.isclose(drm, expected_drm, atol=2.0), (
         f"DRM should be {expected_drm:.2f}°, got {drm:.2f}°"
+    )
 
     # For this scenario: bearing 45° to 43°, range 11.5 to 9.0 NM
     # Target is closing and slightly left drift - DRM should be roughly SW (around 220-240°)
-    assert 210 <= drm <= 250, \
+    assert 210 <= drm <= 250, (
         f"For target closing from bearing 45° at decreasing range, DRM should \
             be SW quadrant, got {drm:.2f}°"
+    )
 
 
 def test_find_drm_directions():
@@ -129,13 +131,17 @@ def test_find_line_equation_polar():
     expected_intercept = r_y - (expected_slope * r_x)
 
     # Verify calculated values match expected
-    assert np.isclose(slope, expected_slope, atol=0.1), \
+    assert np.isclose(slope, expected_slope, atol=0.1), (
         f"Slope should be {expected_slope:.2f}, got {slope:.2f}"
-    assert np.isclose(intercept, expected_intercept, atol=0.1), \
+    )
+    assert np.isclose(intercept, expected_intercept, atol=0.1), (
         f"Intercept should be {expected_intercept:.2f}, got {intercept:.2f}"
+    )
 
     # For this specific case: line from North to East should have slope -1, intercept 10
-    assert np.isclose(slope, -1.0, atol=0.1), \
+    assert np.isclose(slope, -1.0, atol=0.1), (
         "Line from North (0,10) to East (10,0) should have slope -1"
-    assert np.isclose(intercept, 10.0, atol=0.1), \
+    )
+    assert np.isclose(intercept, 10.0, atol=0.1), (
         "Line from North (0,10) to East (10,0) should have y-intercept 10"
+    )

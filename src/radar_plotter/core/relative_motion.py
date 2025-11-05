@@ -44,6 +44,7 @@ def find_line_equation(point_1: tuple, point_2: tuple, cartesian: bool = True) -
 
     return line_slope, line_intercept
 
+
 def find_srm(r_point: tuple, m_point: tuple) -> float:
     """
     Calculates Speed of Relative Motion (SRM).
@@ -62,16 +63,17 @@ def find_srm(r_point: tuple, m_point: tuple) -> float:
     # Finding the time difference between when the two points showed up on radar
     r_time = datetime.strptime(r_point[2], "%H:%M")
     m_time = datetime.strptime(m_point[2], "%H:%M")
-    time_delta = (m_time - r_time).total_seconds() / 3600   # Time is in hours
+    time_delta = (m_time - r_time).total_seconds() / 3600  # Time is in hours
 
     # Calculating the distance between the 2 points. Then we use the distance
     # and time to find the target's relative speed. For reference, the distance
     # between 2 points is found using the following equation:
     #   sqrt(((X_2 - X_1) ** 2) + (Y_2 - Y_1) ** 2)
-    distance = np.sqrt(((m_x - r_x) ** 2) + ((m_y - r_y) **2))
+    distance = np.sqrt(((m_x - r_x) ** 2) + ((m_y - r_y) ** 2))
     speed = distance / time_delta
 
     return speed
+
 
 def find_drm(r_point: tuple, m_point: tuple) -> float:
     """

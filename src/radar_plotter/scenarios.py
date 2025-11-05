@@ -15,7 +15,7 @@ SCENARIO_1 = RadarProblem(
     maneuver_dist=5.0,
     new_cpa_dist=5.0,
     r_point=RadarPoint(45.0, 11.5, "14:00"),
-    m_point=RadarPoint(43.0, 9.0, "14:06")
+    m_point=RadarPoint(43.0, 9.0, "14:06"),
 )
 
 # Another scenario
@@ -25,7 +25,7 @@ SCENARIO_2 = RadarProblem(
     maneuver_dist=6.0,
     new_cpa_dist=3.0,
     r_point=RadarPoint(45.0, 12.0, "10:00"),
-    m_point=RadarPoint(42.0, 9.5, "10:08")
+    m_point=RadarPoint(42.0, 9.5, "10:08"),
 )
 
 # Head-on scenario
@@ -35,7 +35,7 @@ SCENARIO_3 = RadarProblem(
     maneuver_dist=4.0,
     new_cpa_dist=2.5,
     r_point=RadarPoint(0.0, 10.0, "08:00"),
-    m_point=RadarPoint(358.0, 7.5, "08:05")
+    m_point=RadarPoint(358.0, 7.5, "08:05"),
 )
 
 # Crossing bow scenario
@@ -45,7 +45,7 @@ SCENARIO_4 = RadarProblem(
     maneuver_dist=5.5,
     new_cpa_dist=3.0,
     r_point=RadarPoint(315.0, 8.0, "16:00"),
-    m_point=RadarPoint(320.0, 6.0, "16:10")
+    m_point=RadarPoint(320.0, 6.0, "16:10"),
 )
 
 # List of all scenarios
