@@ -4,7 +4,7 @@ A Python application for calculating collision avoidance radar plots to help mar
 
 [![Tests](https://github.com/osyounis/collision_avoidance_radar_plotting_app/actions/workflows/tests.yml/badge.svg)](https://github.com/osyounis/collision_avoidance_radar_plotting_app/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/osyounis/collision_avoidance_radar_plotting_app/graph/badge.svg)](https://codecov.io/gh/osyounis/collision_avoidance_radar_plotting_app)
-![Python](https://img.shields.io/badge/python-3.12%2B-blue?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.12-blue?logo=python&logoColor=white)
 ![License](https://img.shields.io/github/license/osyounis/collision_avoidance_radar_plotting_app)
 
 ---
