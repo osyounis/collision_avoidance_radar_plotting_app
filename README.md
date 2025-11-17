@@ -7,6 +7,10 @@ A Python application for calculating collision avoidance radar plots to help mar
 ![Python](https://img.shields.io/badge/python-3.12-blue?logo=python&logoColor=white)
 ![License](https://img.shields.io/github/license/osyounis/collision_avoidance_radar_plotting_app)
 
+<!-- Uncomment when deployed to Streamlit Cloud
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](YOUR_STREAMLIT_URL_HERE)
+-->
+
 ---
 
 ## 📋 Features
@@ -17,6 +21,25 @@ A Python application for calculating collision avoidance radar plots to help mar
 - **Web interface** for non-technical users (Streamlit)
 - **Python API** for advanced users
 - **Educational tool** for Coast Guard Auxiliary and maritime training
+
+---
+
+## 📸 Screenshots
+
+### Main Application Interface
+The web app provides an intuitive interface for entering vessel parameters and calculating collision avoidance solutions.
+
+![Main App Interface](assets/screenshot_app_main.png)
+
+### Radar Plot Visualization
+Professional polar radar plot showing relative motion lines (RML), closest point of approach (CPA), new relative motion line (NRML), and maneuvering solutions.
+
+![Radar Plot](assets/screenshot_radar_plot.png)
+
+### Calculated Results
+The app calculates all essential navigation parameters including CPA distance/bearing, relative motion vectors (SRM/DRM), true motion vectors (STM/DTM), and recommended new course/speed.
+
+![Results Display](assets/screenshot_results.png)
 
 ---
 
