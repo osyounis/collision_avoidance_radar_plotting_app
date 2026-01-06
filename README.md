@@ -1,3 +1,5 @@
+![Project Banner](./assets/collision-avoidance-banner.jpg)
+
 # ⚓ Collision Avoidance Radar Plotting App
 
 A Python application for calculating collision avoidance radar plots to help maritime navigators train and practice this essential skill.
