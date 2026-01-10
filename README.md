@@ -1,6 +1,6 @@
-![Project Banner](./assets/collision-avoidance-banner.jpg)
-
 # ⚓ Collision Avoidance Radar Plotting App
+
+![Project Banner](./assets/collision-avoidance-banner.jpg)
 
 A Python application for calculating collision avoidance radar plots to help maritime navigators train and practice this essential skill.
 
@@ -9,9 +9,7 @@ A Python application for calculating collision avoidance radar plots to help mar
 ![Python](https://img.shields.io/badge/python-3.12-blue?logo=python&logoColor=white)
 ![License](https://img.shields.io/github/license/osyounis/collision_avoidance_radar_plotting_app)
 
-<!-- Uncomment when deployed to Streamlit Cloud
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](YOUR_STREAMLIT_URL_HERE)
--->
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://collision-avoidance-radar-plotting-app.streamlit.app/)
 
 ---
 
