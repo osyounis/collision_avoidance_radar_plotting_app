@@ -1,3 +1,10 @@
+> **Archived: superseded by [radar-moboard](https://github.com/osyounis/radar-moboard).**
+>
+> A TypeScript rewrite with the same geometry, a static plot renderer, and
+> animation. This repo is kept for reference: the corrected solver here was
+> the source of the reference vectors used there. Tagged `v0-python-reference`.
+
+
 # ⚓ Collision Avoidance Radar Plotting App
 
 ![Project Banner](./assets/collision-avoidance-banner.jpg)
